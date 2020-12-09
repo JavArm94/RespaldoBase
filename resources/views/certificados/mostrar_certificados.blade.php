@@ -46,12 +46,21 @@
         <th>{{$certificado['DiasAusencia']}}</th>
         <th>{{$certificado['Estado']}}</th>
         <th class="action-th">
- <a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Ver</button>   </a> <br>
-      <a href="{{ route('certificados.edit', [$certificado['Id']]) }}" >  <button class="button-th">  Modificar</button></a> <br>
-        {!! Form::open(['route' => ['certificados.destroy', $certificado['Id']], 'method' => 'delete']) !!}
-        {!! Form::button('Eliminar', ['type' => 'submit','class'=> 'button-th' ,'onclick' => "return confirm('¿Está seguro?')"]) !!} 
-        {!! Form::close() !!}
-        </th>   
+@if ($certificado['Estado']=='Pendiente')
+<a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Ver</button>   </a> <br>
+<a href="{{ route('certificados.edit', [$certificado['Id']]) }}" >  <button class="button-th">  Modificar</button></a> <br>
+ 
+{!! Form::open(['route' => ['certificados.destroy', $certificado['Id']], 'method' => 'delete']) !!}
+{!! Form::button('Eliminar', ['type' => 'submit','class'=> 'button-th' ,'onclick' => "return confirm('¿Está seguro?')"]) !!} 
+  {!! Form::close() !!}
+  </th>    
+  @else
+  <a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Ver</button>   </a> <br>
+{!! Form::open(['route' => ['certificados.destroy', $certificado['Id']], 'method' => 'delete']) !!}
+{!! Form::button('Eliminar', ['type' => 'submit','class'=> 'button-th' ,'onclick' => "return confirm('¿Está seguro?')"]) !!} 
+  {!! Form::close() !!}
+@endif
+  
     </tr>
 
     @endforeach

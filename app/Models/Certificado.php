@@ -88,7 +88,7 @@ class Certificado extends Model
      */
     public static $rules = [
         'diasDeAusencia' => 'required|integer',
-        'lugar' => 'required|string|max:45',
+        'lugar' => 'nullable',
         'numeroComprobante' => 'required',
         'fechaVencimiento' => 'required',
         'fechaCertificado' => 'required',
@@ -106,7 +106,7 @@ class Certificado extends Model
     public static $rulesCreate  = 
     [
         'diasDeAusencia' => 'required|integer',
-        'lugar' => 'required|string|max:45',
+      /*  'lugar' => 'required|string|max:45',*/
         'fechaCertificado' => 'required',
         'imagen' => 'nullable|string|max:65535',
         'created_at' => 'nullable',
@@ -117,59 +117,94 @@ class Certificado extends Model
         'idFamiliar' => 'nullable'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function idfamiliar()
-    {
-        return $this->belongsTo(\App\Models\Familiar::class, 'idFamiliar');
+    public function auditoriaCertificado(){
+        return $this->hasMany(AuditoriaCertificado::class,'idAuditoriaCertificado');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function idmedico()
-    {
-        return $this->belongsTo(\App\Models\Medico::class, 'idMedico');
+    public function notificacionesCertificado(){
+        return $this->hasMany(NotificacionCertificado::class,'idNotificacion');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function idpatologia()
-    {
-        return $this->belongsTo(\App\Models\Patologia::class, 'idPatologia');
+    public function tipoCertificado(){
+        return $this->belongsTo(TipoCertificado::class,'idTipoCertificado');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function idtipocertificado()
-    {
-        return $this->belongsTo(\App\Models\TipoCertificado::class, 'idTipoCertificado');
+    public function medico(){
+        return $this->belongsTo(Medico::class,'idMedico');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function idusuariocertificado()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'idUsuarioCertificado');
+    public function patologia(){
+        return $this->belongsTo(Patologia::class,'idPatologia');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function auditoriaCertificados()
-    {
-        return $this->hasMany(\App\Models\AuditoriaCertificado::class, 'idCertificado');
+    public function usuario(){
+        return $this->belongsTo(Usuario::class,'idUsuarioCertificado');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function notificacionCertificados()
+    public function familiar(){
+        return $this->belongsTo(Familiar::class,'idFamiliar');
+    }
+
+    public static function certificadosFiltro($idmedico, $estado, $fecha_inicial, $fecha_final)
     {
-        return $this->hasMany(\App\Models\NotificacionCertificado::class, 'idCertificado');
+        return Certificado::estado($estado)->fechasCertificado($fecha_inicial, $fecha_final)->doctor($idmedico)->get(); //paginate(9);
+    }
+
+    public static function certificadosFiltroAusentismo($fecha_inicial, $fecha_final)
+    {
+        return Certificado::fechasCertificadoAusentismo($fecha_inicial, $fecha_final)->get(); //paginate(9);
+    }
+
+
+    public function scopeDoctor($query, $idmedico)
+    {
+             if (!empty($idmedico)){
+                return $query->where('idMedico', $idmedico);
+            }
+            
+    }
+
+    public function scopeEstado($query, $estado)
+    {
+        if (!empty($estado)) {
+            return $query->where('estadoCertificado', $estado);
+        }
+    }
+
+    public function scopeFechasCertificado($query, $fecha_inicial, $fecha_final)
+    {
+        if (!empty($fecha_inicial) && !empty($fecha_final)) {
+            return $query->whereBetween('fechaCertificado', [$fecha_inicial, $fecha_final]);
+        } elseif (!empty($fecha_inicial) && empty($fecha_final)) {
+            return $query->where('fechaCertificado', '>=', $fecha_inicial);
+        } elseif(empty($fecha_inicial) && !empty($fecha_final)) {
+            return $query->where('fechaCertificado', '<=', $fecha_final);
+        }
+    }
+
+    public function scopeFechasCertificadoAusentismo($query, $fecha_inicial, $fecha_final)
+    {
+        if (!empty($fecha_inicial) && !empty($fecha_final)) {
+            return $query->whereBetween('fechaCertificado', [$fecha_inicial, $fecha_final]);
+        } elseif (!empty($fecha_inicial) && empty($fecha_final)) {
+            return $query->where('fechaCertificado', '>=', $fecha_inicial);
+        } elseif(empty($fecha_inicial) && !empty($fecha_final)) {
+            return $query->where('fechaCertificado', '<=', $fecha_final);
+        }
+    }
+
+    public function calcularDiasAusente($fecha_inicial, $fecha_final)
+    {
+        if ( ( $this->fechaCertificado <= $fecha_inicial ) && ( Carbon::createFromFormat('Y-m-d',$this->fechaCertificado)->addDay($this->diasDeAusencia)   >= $fecha_final ))
+
+            return Carbon::createFromFormat('Y-m-d',$fecha_final)->diffInDays(Carbon::createFromFormat('Y-m-d',$fecha_inicial));
+
+        if ( ( $this->fechaCertificado >= $fecha_inicial ) && ( Carbon::createFromFormat('Y-m-d',$this->fechaCertificado)->addDay($this->diasDeAusencia)  <= $fecha_final ))
+            return Carbon::createFromFormat('Y-m-d',$this->fechaCertificado)->addDay($this->diasDeAusencia)->diffInDays(Carbon::createFromFormat('Y-m-d',$this->fechaCertificado));;
+
+        if ( ( $this->fechaCertificado < $fecha_inicial ) && ( Carbon::createFromFormat('Y-m-d',$this->fechaCertificado)->addDay($this->diasDeAusencia)  < $fecha_final ))
+            return Carbon::createFromFormat('Y-m-d',$this->fechaCertificado)>addDay($this->diasDeAusencia)->diffInDays(Carbon::createFromFormat('Y-m-d',$fecha_inicial));
+
+        return 0;
     }
 }

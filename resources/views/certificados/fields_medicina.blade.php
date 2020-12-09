@@ -1,21 +1,24 @@
 <script>
     function check() {
       
-      if (document.getElementById('idTipoCertificado').value=="Simple") {
+      if (document.getElementById('idTipoCertificado').value=="1") {
         document.getElementById('titular').setAttribute("value","Propio");
        document.getElementById('idFamiliar').setAttribute("hidden", false);
        document.getElementById('diasDeAusencia').value="";
+       document.getElementById('excesoDias').innerHTML="";
   
-      } else if (document.getElementById('idTipoCertificado').value=="Tratamiento prolongado"){
+      } else if (document.getElementById('idTipoCertificado').value=="2"){
         document.getElementById('titular').setAttribute("value","Propio");
         document.getElementById('idFamiliar').setAttribute("hidden", false);
         document.getElementById('diasDeAusencia').value="";
+        document.getElementById('excesoDias').innerHTML="";
       }
 
-      else if (document.getElementById('idTipoCertificado').value=="Familiar"){
+      else if (document.getElementById('idTipoCertificado').value=="3"){
         document.getElementById('titular').setAttribute("value","Familiar");
         document.getElementById('idFamiliar').removeAttribute("hidden");
         document.getElementById('diasDeAusencia').value="";
+        document.getElementById('excesoDias').innerHTML="";
       }
     }
 </script>
@@ -39,7 +42,7 @@
 
 <div class="form">
     {!! Form::label('idTipoCertificado', 'Tipo de certificado') !!}<br>
-    {!! Form::select('idTipoCertificado',array('Simple' => 'Simple', 'Tratamiento prolongado' => 'Tratamiento prolongado','Familiar' => 'Familiar'), null, ['class' => 'select','onchange'=>"check()"]) !!}
+    {!! Form::select('idTipoCertificado',array('1' => 'Simple', '2' => 'Tratamiento prolongado','3' => 'Familiar'), null, ['class' => 'select','onchange'=>"check()"]) !!}
     <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
     @if ($errors->has('idTipoCertificado'))
         <span class="help-block">
@@ -58,7 +61,7 @@
     <input value="Propio" type="text" name="" id="titular" style="color:#BABEC6" disabled="disabled">
         <br>
 
-    {!! Form::text('idFamiliar', null, ['class' => 'form-control','autofocus','hidden','placeholder'=>'Tipo de certificado']) !!}
+    {!! Form::text('idFamiliar', null, ['class' => 'form-control','autofocus','hidden','placeholder'=>'Familiar']) !!}
     <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
     @if ($errors->has('idFamiliar'))
         <span class="help-block">
@@ -87,7 +90,7 @@
 <script>
     function calcularAusencia (a){
         if (a!=null) {
-            if (a>10 && document.getElementById('idTipoCertificado').value=="Tratamiento prolongado") {
+            if (a>10 && (document.getElementById('idTipoCertificado').value=="1" || document.getElementById('idTipoCertificado').value=="3")) {
                 var msj = document.createTextNode("Exceso");
                 document.getElementById('excesoDias').innerHTML="";
                 document.getElementById('excesoDias').appendChild(msj);
@@ -111,7 +114,7 @@
     @endif
 </div>
 
-<!-- Lugar Field -->
+<!-- Lugar Field
 <div class="form">
     {!! Form::label('lugar', 'Lugar') !!}<br>
     {!! Form::number('lugar', null, ['class' => 'form-control','autofocus','placeholder'=>'Lugar de emisión']) !!}
@@ -121,7 +124,7 @@
         <strong>{{ $errors->first('lugar') }}</strong>
     </span>
     @endif
-</div>
+</div> -->
 
 <!-- Numerocomprobante Field  autogenera
 <div class="form">

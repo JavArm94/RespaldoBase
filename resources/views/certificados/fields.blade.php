@@ -1,21 +1,28 @@
 <script>
     function check() {
-      if (document.getElementById('idTipoCertificado').value=="Simple") {
+      
+      if (document.getElementById('idTipoCertificado').value=="1") {
         document.getElementById('titular').setAttribute("value","Propio");
        document.getElementById('idFamiliar').setAttribute("hidden", false);
        document.getElementById('diasDeAusencia').value="";
-      } else if (document.getElementById('idTipoCertificado').value=="Tratamiento prolongado"){
+       document.getElementById('excesoDias').innerHTML="";
+  
+      } else if (document.getElementById('idTipoCertificado').value=="2"){
         document.getElementById('titular').setAttribute("value","Propio");
         document.getElementById('idFamiliar').setAttribute("hidden", false);
         document.getElementById('diasDeAusencia').value="";
+        document.getElementById('excesoDias').innerHTML="";
       }
-      else if (document.getElementById('idTipoCertificado').value=="Familiar"){
+
+      else if (document.getElementById('idTipoCertificado').value=="3"){
         document.getElementById('titular').setAttribute("value","Familiar");
         document.getElementById('idFamiliar').removeAttribute("hidden");
         document.getElementById('diasDeAusencia').value="";
+        document.getElementById('excesoDias').innerHTML="";
       }
     }
 </script>
+
 <!-- Idtipocertificado Field --> 
 
 <div class="form">
@@ -36,10 +43,9 @@
 <div class="form">
     {!! Form::label('idFamiliar', 'Titular certificado') !!}<br>
 
-    <input value="Propio" type="text" name="" id="titular" style="color:#BABEC6" disabled="disabled">
-        <br>
+    <input value="Propio" type="text" name="" id="titular" style="color:#BABEC6" disabled="disabled"><br>
 
-    {!! Form::text('idFamiliar', null, ['class' => 'form-control','autofocus','hidden','placeholder'=>'Tipo de certificado']) !!}
+    {!! Form::text('idFamiliar', null, ['class' => 'form-control','autofocus','hidden','placeholder'=>'Familiar']) !!}
     <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
     @if ($errors->has('idFamiliar'))
         <span class="help-block">
@@ -68,7 +74,7 @@
 <script>
     function calcularAusencia (a){
         if (a!=null) {
-            if (a>10 && document.getElementById('idTipoCertificado').value=="Tratamiento prolongado") {
+            if (a>10 && (document.getElementById('idTipoCertificado').value=="1" || document.getElementById('idTipoCertificado').value=="3")) {
                 var msj = document.createTextNode("Exceso");
                 document.getElementById('excesoDias').innerHTML="";
                 document.getElementById('excesoDias').appendChild(msj);
@@ -92,55 +98,7 @@
     @endif
 </div>
 
-<!-- Lugar Field -->
-<div class="form-select">
-    {!! Form::label('idLocalidad', 'Lugar') !!}<br>
-    {!! Form::select('idLocalidad',$localidades, null, ['class' => 'select']) !!}
-    @if ($errors->has('idLocalidad'))
-    <span class="help-block">
-    <strong>{{ $errors->first('idLocalidad') }}</strong>
-</span>
-@endif
 
-</div>
-
-<!-- Numerocomprobante Field  autogenera
-<div class="form">
-    {!! Form::label('numeroComprobante', 'Numero de comprobante') !!}<br>
-    {!! Form::number('numeroComprobante', null, ['class' => 'form-control','autofocus','placeholder'=>'Numero de comprobante']) !!}
-    <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-    @if ($errors->has('numeroComprobante'))
-        <span class="help-block">
-        <strong>{{ $errors->first('numeroComprobante') }}</strong>
-    </span>
-    @endif
-</div>-->
-
-
-<!-- Fechavencimiento Field autogenera
-
-
-<div class="form">
-    {!! Form::label('fechaVencimiento', 'Fecha de vencimiento') !!}<br>
-    {!! Form::number('fechaVencimiento', null, ['class' => 'form-control','autofocus','placeholder'=>'Fecha de vencimiento']) !!}
-    <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-    @if ($errors->has('fechaVencimiento'))
-        <span class="help-block">
-        <strong>{{ $errors->first('fechaVencimiento') }}</strong>
-    </span>
-    @endif
-</div>
-@push('scripts')
-    <script type="text/javascript">
-        $('#fechaVencimiento').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: true,
-            sideBySide: true
-        })
-    </script>
-@endpush
-
- -->
 
 
 
