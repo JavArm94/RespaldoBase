@@ -120,7 +120,7 @@ class Certificado extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function idfamiliar()
+    public function familiar()
     {
         return $this->belongsTo(\App\Models\Familiar::class, 'idFamiliar');
     }
@@ -128,7 +128,7 @@ class Certificado extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function idmedico()
+    public function medico()
     {
         return $this->belongsTo(\App\Models\Medico::class, 'idMedico');
     }
@@ -136,7 +136,7 @@ class Certificado extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function idpatologia()
+    public function patologia()
     {
         return $this->belongsTo(\App\Models\Patologia::class, 'idPatologia');
     }
@@ -144,7 +144,7 @@ class Certificado extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function idtipocertificado()
+    public function tipocertificado()
     {
         return $this->belongsTo(\App\Models\TipoCertificado::class, 'idTipoCertificado');
     }
@@ -152,7 +152,7 @@ class Certificado extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function idusuariocertificado()
+    public function usuariocertificado()
     {
         return $this->belongsTo(\App\Models\User::class, 'idUsuarioCertificado');
     }
