@@ -196,7 +196,11 @@ class CertificadoController extends AppBaseController
     public function ingresarCertificadoCheck(){
         $justificado = DB::table('certificados')->where('idUsuarioCertificado','=',auth::id())->where('estadoCertificado','=','Justificado')->get();
                if(empty($justificado[0])){
-                              return view('certificados.create');
+                $localidades = DB::table('localidades')->get()->pluck('nombreLocalidad','id');
+                $patologias = DB::table('patologias')->get()->pluck('nombrePatologia','id');
+                $medicos = DB::table('medicos')->get()->pluck('apellido','id');
+               
+                              return view('certificados.create',compact('localidades','patologias','medicos'));
         }
          else{
             return view('certificados.activoTrue');

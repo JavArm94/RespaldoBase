@@ -93,15 +93,15 @@
 </div>
 
 <!-- Lugar Field -->
-<div class="form">
-    {!! Form::label('lugar', 'Lugar') !!}<br>
-    {!! Form::number('lugar', null, ['class' => 'form-control','autofocus','placeholder'=>'Lugar de emisión']) !!}
-    <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-    @if ($errors->has('lugar'))
-        <span class="help-block">
-        <strong>{{ $errors->first('lugar') }}</strong>
-    </span>
-    @endif
+<div class="form-select">
+    {!! Form::label('idLocalidad', 'Lugar') !!}<br>
+    {!! Form::select('idLocalidad',$localidades, null, ['class' => 'select']) !!}
+    @if ($errors->has('idLocalidad'))
+    <span class="help-block">
+    <strong>{{ $errors->first('idLocalidad') }}</strong>
+</span>
+@endif
+
 </div>
 
 <!-- Numerocomprobante Field  autogenera
@@ -154,9 +154,9 @@
 
 
 <!-- Idpatologia Field -->
-<div class="form">
+<div class="form-select">
     {!! Form::label('idPatologia', 'Patologia') !!}<br>
-    {!! Form::number('idPatologia', null, ['class' => 'form-control','autofocus','placeholder'=>'Patología']) !!}
+    {!! Form::select('idPatologia',$patologias, null, ['class' => 'select']) !!}
     <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
     @if ($errors->has('idPatologia'))
         <span class="help-block">
@@ -166,10 +166,12 @@
 </div>
 
 
+
+
 <!-- Idmedico Field ?¡?¡? -->
-<div class="form">
+<div class="form-select">
     {!! Form::label('idMedico', 'Medico') !!}<br>
-    {!! Form::number('idMedico', null, ['class' => 'form-control','autofocus','placeholder'=>'Medico']) !!}
+    {!! Form::select('idMedico',$medicos, null, ['class' => 'select']) !!}
     <br><span class="glyphicon glyphicon-envelope form-control-feedback"></span>
     @if ($errors->has('idMedico'))
         <span class="help-block">
