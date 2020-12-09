@@ -19,6 +19,12 @@ body {
     font-weight: bold;
 }
 
+h1 {
+    padding-top: 100px;
+    padding-bottom: 0;
+    margin: 0;
+}
+
 a {
     padding: 0;
     margin: 0;
@@ -42,6 +48,7 @@ tr {
     font-family: RedHatMedium;
     border: 1 px;
     padding-bottom: 20px;
+    color: #4d4a62;
 }
 
 th {
