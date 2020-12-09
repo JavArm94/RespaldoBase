@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Genero extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes;  // También agregar en la migración
 
     use HasFactory;
 
