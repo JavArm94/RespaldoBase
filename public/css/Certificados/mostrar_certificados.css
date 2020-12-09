@@ -1,0 +1,81 @@
+@font-face {
+    font-family: RedHatMedium;
+    src: url("/fonts/RedHatDisplay-Medium.ttf");
+}
+@font-face {
+    font-family: RedHatRegular;
+    src: url("/fonts/RedHatDisplay-Regular.ttf");
+}
+
+html,
+head,
+body {
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100%;
+    color: #ffffff;
+    font-family: RedHatRegular;
+    font-style: normal;
+    font-weight: bold;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+table,
+th,
+tr {
+    color: #4d4a62;
+    border: 1px solid #92a1c5;
+    border-collapse: collapse;
+    font-size: 22px;
+}
+
+.encabezado-tabla {
+    font-family: RedHatMedium;
+    border: 1 px;
+    padding-bottom: 20px;
+}
+
+th {
+    padding: 10px;
+    font-weight: normal;
+}
+
+.tabla-container {
+    padding-top: 80px;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-bottom: 80px;
+}
+
+.info-text {
+    color: #4d4a62;
+    display: grid;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+    padding-top: 80px;
+}
+
+form {
+    margin: 0;
+}
+
+.button-th {
+    width: 100px !important;
+    height: 36px !important ;
+}
+
+.action-th {
+    border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+}

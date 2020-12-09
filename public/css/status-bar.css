@@ -1,0 +1,36 @@
+.status-bar {
+    height: 80px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    background-color: #7886a8;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.text-bar {
+    text-align: center;
+    padding-top: 20px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.status-bar button:hover {
+    background: #4a5162;
+}
+
+button {
+    background: #7886a8;
+    border: 2px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 40px;
+    font-family: RedHatRegular;
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff;
+    width: 140px;
+    outline: none;
+    height: 40px;
+    font-style: normal;
+    font-weight: bold;
+}

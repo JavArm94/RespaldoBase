@@ -1,0 +1,72 @@
+/*Setting color fuente blanco y eliminacion de margenes/padding */
+html,
+head,
+body {
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100%;
+    color: #ffffff;
+    font-family: RedHatRegular;
+    font-style: normal;
+    font-weight: bold;
+}
+
+p {
+    margin: 0 !important;
+}
+
+.main-menu {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 70px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.main-menu div {
+    text-align: center;
+    vertical-align: middle;
+    font-family: RedHatMedium;
+    font-style: normal;
+    font-weight: 500;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.ingresar-certificado {
+    background-image: url("/images/ingresar_certificado.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 360px;
+    padding-top: 30px;
+}
+
+.ver-certificado {
+    background-image: url("/images/ver_certificado.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 360px;
+    padding-top: 70px;
+}
+
+.body-page {
+    height: 400px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    color: #4d4a62;
+    padding-top: 80px;
+    font-family: RedHatRegular;
+    font-size: 38px;
+}
+
+.body-text {
+    padding-top: 80px;
+}

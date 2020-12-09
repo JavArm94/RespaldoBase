@@ -1,0 +1,64 @@
+@font-face {
+    font-family: RedHatMedium;
+    src: url("/fonts/RedHatDisplay-Medium.ttf");
+}
+@font-face {
+    font-family: RedHatRegular;
+    src: url("/fonts/RedHatDisplay-Regular.ttf");
+}
+.navbar {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    width: 100%;
+    height: 100px;
+    background-color: #4a5162;
+    margin: 0px !important;
+    padding: 0px !important;
+    font-size: 18px;
+    grid-template-columns: min-content 1px auto min-content min-content min-content min-content;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+    padding-left: 100px;
+    font-size: 30px;
+    line-height: 100px;
+    padding-right: 30px;
+}
+
+.navbar p {
+    line-height: 100px;
+    padding-top: 2px;
+    padding-left: 30px;
+}
+.navbar hr {
+    height: 40px;
+    margin-top: 30px;
+}
+
+.icon {
+    height: 40px;
+
+    padding-top: 30px;
+    padding-right: 50px !important;
+}
+
+form {
+    padding: 0;
+}
+
+.logout {
+    padding-top: 26px;
+    padding-right: 100px !important;
+    font-weight: normal;
+}
+
+.logout a {
+    padding-left: 0 !important;
+    line-height: 22px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+}
