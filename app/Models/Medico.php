@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Medico extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     use HasFactory;
 
@@ -78,5 +78,9 @@ class Medico extends Model
     public function certificados()
     {
         return $this->hasMany(\App\Models\Certificado::class, 'idMedico');
+    }
+
+    public function getApellidoNombresAttribute  (){
+        return $this->apellido. ','. $this->nombres;
     }
 }

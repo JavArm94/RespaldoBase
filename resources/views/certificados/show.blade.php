@@ -9,8 +9,19 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('certificados.show_fields')
+                    
                     <br><br>
+
+
+                    @if (!Auth::user()->idRol==1)
                     <a href="{{ url('/certificados/mostrar_certificados') }}"><button href="" type="button" class="button">Regresar</button></a> 
+     
+                    @else
+                    <a href="{{ url('/certificados/mostrar_certificados_personal') }}"><button href="" type="button" class="button">Regresar</button></a> 
+
+                    @endif
+
+                
                 </div>
             </div>
         </div>

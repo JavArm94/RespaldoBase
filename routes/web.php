@@ -61,7 +61,11 @@ Route::get('/certificados/ingresarCertificado', [App\Http\Controllers\Certificad
 
 Route::get('/users/agregarUsuario', [App\Http\Controllers\UserController::class,'ingresarUsuario']);
 
+
 Route::get('/usuario', [App\Http\Controllers\UserController::class,'getUsuario']);
+
+
+Route::get('/certificados/mostrar_certificados_personal', 'App\Http\Controllers\CertificadoController@mostrarCertificadosPersonal');
 
 Route::get('/certificados/mostrar_certificados','App\Http\Controllers\CertificadoController@mostrarCertificados');
 

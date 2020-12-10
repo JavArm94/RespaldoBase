@@ -14,7 +14,7 @@
     @include('status-bar')
    <div class="main-menu">
     <div class="ingresar-certificado"><a href="{{ url('certificados/ingresarCertificado') }}">Ingresar<br>nuevo<br>certificado</a></div>
-    <div class="ver-certificado"> <a href="{{ url('certificados/mostrar_certificados') }}">Ver <br> certificados</a></div>
+    <div class="ver-certificado"> <a href="{{ url('certificados/mostrar_certificados_personal') }}">Ver <br> certificados</a></div>
     <div class="generar-reporte"> <a href="">Generar reportes </a></div>
    
    </div>

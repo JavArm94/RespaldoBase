@@ -35,6 +35,43 @@ class CertificadoController extends AppBaseController
      */
 
 
+
+     public function mostrarCertificadosPersonal(){
+        $certificados = Certificado::all()->where('estadoCertificado','=','Pendiente'); 
+          
+        $coleccion = array();
+        foreach ($certificados as $certificado) {
+            
+            $nombreTitular= DB::table('users')->where('id','=',$certificado->idUsuarioCertificado)->get('nombreUsuario');                       
+            $nombreMedico = DB::table('medicos')->where('id','=',$certificado->idMedico)->get('nombres');
+            $nombrePatologia = DB::table('patologias')->where('id','=',$certificado->idPatologia)->get('nombrePatologia');
+            
+            $certificadoPush = array(
+                "Titular"  => $nombreTitular,
+                "Fecha" => $certificado->fechaCertificado, // ->format('m/d/Y') ,
+                "Patologia" =>  $nombrePatologia ,
+                "Medico" => $nombreMedico,
+                "DiasAusencia" => $certificado->diasDeAusencia,
+                "Id" => $certificado->id
+            );
+            
+       
+
+            array_push($coleccion,$certificadoPush );
+            }
+
+
+        
+        return view('certificados.mostrar_certificados_personal',[
+           'certificados'=>  $coleccion,
+       ]);
+     }
+
+ 
+
+
+
+
     public function mostrarCertificados(){
         $id = Auth::id();
         $certificados = Certificado::where('idUsuarioCertificado','=',$id)->get(); 
@@ -55,7 +92,7 @@ class CertificadoController extends AppBaseController
             
             $certificadoPush = array(
                 "Titular"  => $nombreTitular,
-                "Fecha" => $certificado->fechaCertificado->format('m/d/Y') ,
+                "Fecha" => $certificado->fechaCertificado ,
                 "Patologia" =>  $nombrePatologia ,
                 "Medico" => $nombreMedico,
                 "DiasAusencia" => $certificado->diasDeAusencia,
@@ -95,7 +132,7 @@ class CertificadoController extends AppBaseController
             
             $certificadoPush = array(
                 "Titular"  => $nombreTitular,
-                "Fecha" => $certificado->fechaCertificado->format('m/d/Y') ,
+                "Fecha" => $certificado->fechaCertificado, //->format('m/d/Y') ,
                 "Patologia" =>  $nombrePatologia ,
                 "Medico" => $nombreMedico,
                 "DiasAusencia" => $certificado->diasDeAusencia,
@@ -134,7 +171,7 @@ class CertificadoController extends AppBaseController
             
             $certificadoPush = array(
                 "Titular"  => $nombreTitular,
-                "Fecha" => $certificado->fechaCertificado->format('m/d/Y') ,
+                "Fecha" => $certificado->fechaCertificado,//->format('m/d/Y') ,
                 "Patologia" =>  $nombrePatologia ,
                 "Medico" => $nombreMedico,
                 "DiasAusencia" => $certificado->diasDeAusencia,
@@ -173,7 +210,7 @@ class CertificadoController extends AppBaseController
             
             $certificadoPush = array(
                 "Titular"  => $nombreTitular,
-                "Fecha" => $certificado->fechaCertificado->format('m/d/Y') ,
+                "Fecha" => $certificado->fechaCertificado,//->format('m/d/Y') ,
                 "Patologia" =>  $nombrePatologia ,
                 "Medico" => $nombreMedico,
                 "DiasAusencia" => $certificado->diasDeAusencia,
@@ -185,6 +222,8 @@ class CertificadoController extends AppBaseController
 
             array_push($coleccion,$certificadoPush );
             }
+
+           
   
         
         return view('certificados.mostrar_certificados',[
