@@ -45,7 +45,7 @@ class CertificadoController extends AppBaseController
             Certificado::find($id)->update(['estadoCertificado'=>'Injustificado']);
             return redirect()->route('mostrar_certificados_personal');
     }
-    
+
 
      public function mostrarCertificadosPersonal(){
         $certificados = Certificado::all()->where('estadoCertificado','=','Pendiente'); 
@@ -245,7 +245,9 @@ class CertificadoController extends AppBaseController
 
     public function ingresarCertificadoCheck(){
         $justificado = DB::table('certificados')->where('idUsuarioCertificado','=',auth::id())->where('estadoCertificado','=','Justificado')->get();
-               if(empty($justificado[0])){
+        $pendiente = DB::table('certificados')->where('idUsuarioCertificado','=',auth::id())->where('estadoCertificado','=','Pendiente')->get();
+
+        if(empty($justificado[0]) && empty($pendiente[0])){
               //  $localidades = DB::table('localidades')->get()->pluck('nombreLocalidad','nombreLocalidad');
                 $patologias = DB::table('patologias')->get()->pluck('nombrePatologia','id');
                 $medicos = DB::table('medicos')->get()->pluck('apellido','id');
@@ -253,8 +255,13 @@ class CertificadoController extends AppBaseController
                               return view('certificados.create',compact('patologias','medicos'));
         }
          else{
-            return view('certificados.activoTrue');
-                    }
+             if (!empty($justificado[0])) {
+                return view('certificados.activoTrueJustificado');
+             } else {
+                return view('certificados.activoTruePendiente');
+             }
+            
+        }
 
     }
 
@@ -314,6 +321,8 @@ class CertificadoController extends AppBaseController
             return redirect(route('certificados.index'));
         }
 
+        
+
         return view('certificados.show')->with('certificado', $certificado);
     }
 
@@ -327,6 +336,8 @@ class CertificadoController extends AppBaseController
     public function edit($id)
     {
         $certificado = $this->certificadoRepository->find($id);
+        $patologias = DB::table('patologias')->get()->pluck('nombrePatologia','id');
+        $medicos = DB::table('medicos')->get()->pluck('apellido','id');
 
         if (empty($certificado)) {
             Flash::error('Certificado not found');
@@ -334,7 +345,9 @@ class CertificadoController extends AppBaseController
             return redirect(route('certificados.index'));
         }
 
-        return view('certificados.edit')->with('certificado', $certificado);
+        
+
+        return view('certificados.edit')->with('certificado', $certificado)->with('patologias', $patologias)->with('medicos', $medicos);
     }
 
     /**
