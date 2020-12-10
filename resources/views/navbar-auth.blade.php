@@ -4,7 +4,7 @@
        MedicLab </a> 
     <hr> 
     <p>Sistema de gestión médica</p> 
-   <img class="icon" src="{{ asset('icons/cert-icon.png') }}" alt="">
+    <a href="{{ url('certificados/mostrar_certificados') }}" style="padding:0px"><img class="icon" src="{{ asset('icons/show_certificado.png') }}" alt=""> </a>
     <a href="{{ url('users/agregarUsuario') }}" style="padding:0px"> <img class="icon" src="{{ asset('icons/add_user.png') }}" alt=""> </a>
    <img class="icon" src="{{ asset('icons/gear-icon.png') }}" alt=""> 
 
