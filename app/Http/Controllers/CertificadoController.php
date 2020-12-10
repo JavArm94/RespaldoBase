@@ -34,7 +34,18 @@ class CertificadoController extends AppBaseController
      * @return Response
      */
 
+     public function updateEstadoJustificado ($id) {
+    
+            Certificado::find($id)->update(['estadoCertificado'=>'Justificado']);
+            return redirect()->route('mostrar_certificados_personal');
+     }
 
+     
+     public function updateEstadoInjustificado ($id) {
+            Certificado::find($id)->update(['estadoCertificado'=>'Injustificado']);
+            return redirect()->route('mostrar_certificados_personal');
+    }
+    
 
      public function mostrarCertificadosPersonal(){
         $certificados = Certificado::all()->where('estadoCertificado','=','Pendiente'); 

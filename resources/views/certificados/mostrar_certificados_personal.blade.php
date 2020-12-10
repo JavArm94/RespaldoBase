@@ -37,9 +37,9 @@
         <th>{{$certificado['DiasAusencia']}}</th>
         <th class="action-th">
             <a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Ver</button>   </a> <br>
-            <a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Justificar</button>   </a> <br>
-            <a href="{{ route('certificados.show', [$certificado['Id']]) }}" >      <button class="button-th">  Injustificar</button>   </a> <br>
-        </th>    
+            <a href="{{ route('certificados.cambiarEstadoJustificado',[$certificado['Id']])}}" >      <button class="button-th">  Justificar</button>   </a> <br>
+            <a href="{{ route('certificados.cambiarEstadoInjustificado',[$certificado['Id']])}}" >      <button class="button-th">  Injustificar</button>   </a> <br>
+               </th>    
     </tr>
 
     @endforeach

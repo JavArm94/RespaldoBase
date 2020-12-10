@@ -59,13 +59,21 @@ Route::get('/certificados/ingresarCertificadoMed', function () {
 
 Route::get('/certificados/ingresarCertificado', [App\Http\Controllers\CertificadoController::class,'ingresarCertificadoCheck']);
 
+
+Route::get('/certificados/cambiarEstadoJustificado/{id}', [App\Http\Controllers\CertificadoController::class,'updateEstadoJustificado'])->name('certificados.cambiarEstadoJustificado');
+
+
+Route::get('/certificados/cambiarEstadoInjustificado/{id}', [App\Http\Controllers\CertificadoController::class,'updateEstadoInjustificado'])->name('certificados.cambiarEstadoInjustificado');
+
+
+
 Route::get('/users/agregarUsuario', [App\Http\Controllers\UserController::class,'ingresarUsuario']);
 
 
 Route::get('/usuario', [App\Http\Controllers\UserController::class,'getUsuario']);
 
 
-Route::get('/certificados/mostrar_certificados_personal', 'App\Http\Controllers\CertificadoController@mostrarCertificadosPersonal');
+Route::get('/certificados/mostrar_certificados_personal', 'App\Http\Controllers\CertificadoController@mostrarCertificadosPersonal')->name('mostrar_certificados_personal');
 
 Route::get('/certificados/mostrar_certificados','App\Http\Controllers\CertificadoController@mostrarCertificados');
 
